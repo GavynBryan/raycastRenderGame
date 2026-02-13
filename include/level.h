@@ -2,46 +2,31 @@
 
 #include <vector>
 
-constexpr int MAP_WIDTH = 256;
-constexpr int MAP_HEIGHT = 256;
+constexpr int MAP_DEFAULT_WIDTH = 256;
+constexpr int MAP_DEFAULT_HEIGHT = 256;
 
 using MapArray = std::vector<std::vector<int>>;
-
-struct LightData {
-    float Intensity = 0.0f;
-    float R = 0.0f;
-    float G = 0.0f;
-    float B = 0.0f;
-};
-
-constexpr int WALL_SHADING_SUBDIVISIONS = 4;
-
-struct WallLightData {
-    LightData[WALL_SHADING_SUBDIVISIONS] Subdivisions;
-};
-
-const enum WallFaces = {
-    North = 0,
-    South = 1,
-    East = 2,
-    West = 3
-};
-
-struct WallLightDataPerFace {
-    WallLightData Faces[4];
-};
 
 class Level {
 public:
     Level();
+    Level(int width, int height);
 private:
-    MapArray map = MapArray(MAP_HEIGHT, std::vector<int>(MAP_WIDTH, 0));
+    std::vector<int> tileMap;
     int SolidMask = 0;
 
+    int width;
+    int height;
+
 public:
+
+    int GetIndex(const int x, const int y) const {
+        return y * width + x;
+    }
+
     int GetTile(const int x, const int y) const {
-        if(x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) return 0;
-        return map[x][y];
+        if(x < 0 || x >= width || y < 0 || y >= height) return 0;
+        return tileMap[GetIndex(x, y)];
     }
 
     void AddSolid(const int layer) { SolidMask |= 1 << layer; }

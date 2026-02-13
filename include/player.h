@@ -1,10 +1,11 @@
 #pragma once
 
 #include "transform.h"
+#include "view.h"
 
 constexpr float piIncrement = (2*3.14159f )/360;
-struct InputState;
 
+struct InputState;
 class Level;
 
 class Player {
@@ -27,6 +28,8 @@ public:
 
     float GetAngle() const { return transform.angle; }
     float GetAngleDeg() const { return RadToDeg(transform.angle); }
+
+    View GetView(float fov) const { return View{transform, fov}; }
 
     Vec2 GetForward() const { return transform.Forward(); }
 
