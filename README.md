@@ -1,0 +1,1 @@
+Wrote this a few years ago as an experiment on my junk laptop. Decided to archive it on my github. I might improve upon it over time and make a real game with it. It has collision detection and wall rendering. What's missing are textures, sprites, and... gameplay.
